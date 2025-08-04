@@ -1,0 +1,14 @@
+# Режим запуска: dmenu или drun
+show=drun
+
+# Поведение
+allow_images=true
+insensitive=true
+term=ghostty
+
+# Разметка
+prompt=
+hide_scroll=true
+no_actions=true
+width=500
+lines=10

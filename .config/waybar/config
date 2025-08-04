@@ -1,0 +1,69 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 25,
+
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["clock"],
+  "modules-right": ["sway/language", "pulseaudio", "network", "battery", "tray", "custom/powermenu"],
+
+ 
+  "sway/workspaces": {
+  "disable-scroll": true,
+  "persistent_workspaces": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [],
+    "5": [],
+    #"6": [],
+   # "7": [],
+    #"8": [],
+   # "9": [],
+   # "10": []
+  }
+},
+
+
+
+  "clock": {
+    "format": "{:%a %d %b %H:%M}",
+    "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+  },
+
+  "pulseaudio": {
+    "format": " {volume}%",
+    "format-muted": " muted",
+    "on-click": "pavucontrol"
+  },
+  
+
+  "network": {
+    "format-wifi": " {essid}",
+    "format-ethernet": " {ifname}",
+    "format-disconnected": ""
+  },
+
+  "battery": {
+    "format": "{capacity}%",
+    "format-charging": " {capacity}%"
+  },
+
+  "tray": {
+    "icon-size": 16
+  },
+
+  "sway/language": {
+    "format": "{}",
+    "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
+    "tooltip": false
+  },
+
+ "custom/powermenu": {
+  "format": "",
+  "tooltip": "Меню питания",
+  "on-click": "~/.config/waybar/scripts/powermenu.sh"
+}
+
+ 
+}

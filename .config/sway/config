@@ -1,0 +1,106 @@
+### Основное ###
+set $mod Mod4
+set $term ghostty
+set $menu wofi --show drun
+default_border none
+
+### Настройка клавиатуры (keycodes + переключение раскладки) ###
+input * {
+    xkb_layout us,ru
+    xkb_options grp:caps_toggle,ctrl:nocaps
+}
+
+### Используем keycodes, чтобы бинды работали при любой раскладке ###
+bindsym --to-code $mod+Return exec $term
+bindsym --to-code $mod+d exec $menu
+bindsym --to-code $mod+q kill
+bindsym --to-code $mod+Shift+c reload
+bindsym --to-code $mod+Shift+r restart
+bindsym --to-code $mod+Shift+e exit
+bindsym --to-code $mod+Escape exec swaylock -f -c 1e1e2e
+#bindsym --to-code $mod+Shift+s exec dbus-launch flameshot gui
+bindsym Print exec grim -g "$(slurp)" - | wl-copy
+
+### Окна и флоат ###
+bindsym --to-code $mod+f fullscreen
+bindsym --to-code $mod+space floating toggle
+bindsym --to-code $mod+s layout stacking
+bindsym --to-code $mod+w layout tabbed
+bindsym --to-code $mod+e layout toggle split
+bindsym --to-code $mod+h split h
+bindsym --to-code $mod+v split v
+
+### Перемещение по окнам ###
+bindsym --to-code $mod+j focus left
+bindsym --to-code $mod+k focus down
+bindsym --to-code $mod+l focus up
+bindsym --to-code $mod+semicolon focus right
+
+### Перемещение окон ###
+bindsym --to-code $mod+Shift+j move left
+bindsym --to-code $mod+Shift+k move down
+bindsym --to-code $mod+Shift+l move up
+bindsym --to-code $mod+Shift+semicolon move right
+
+### Рабочие столы ###
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym --to-code $mod+1 workspace $ws1
+bindsym --to-code $mod+2 workspace $ws2
+bindsym --to-code $mod+3 workspace $ws3
+bindsym --to-code $mod+4 workspace $ws4
+bindsym --to-code $mod+5 workspace $ws5
+bindsym --to-code $mod+6 workspace $ws6
+bindsym --to-code $mod+7 workspace $ws7
+bindsym --to-code $mod+8 workspace $ws8
+bindsym --to-code $mod+9 workspace $ws9
+bindsym --to-code $mod+0 workspace $ws10
+
+bindsym --to-code $mod+Shift+1 move container to workspace $ws1
+bindsym --to-code $mod+Shift+2 move container to workspace $ws2
+# и так далее…
+
+# Регистрируем статические рабочие столы
+workspace 1
+workspace 2
+workspace 3
+workspace 4
+workspace 5
+#workspace 6
+#workspace 7
+#workspace 8
+#workspace 9
+#workspace 10
+
+
+### Звук (если есть клавиши на клавиатуре) ###
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+### Яркость (если поддерживается) ###
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+
+### Автостарт ###
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
+#exec_always $menu
+exec waybar
+exec_always nm-applet --indicator
+exec_always blueman-applet
+exec_always swaybg -i ~/Pictures/wallpapers/1 -m fill
+
+### Курсор и тема ###
+seat seat0 xcursor_theme Adwaita 24
+
+### Обои (если хочешь заменить фон) ###
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
